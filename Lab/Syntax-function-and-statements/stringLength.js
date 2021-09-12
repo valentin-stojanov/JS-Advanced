@@ -1,7 +1,10 @@
-function stringLength(str1, str2, str3){
-    let length = str1.length + str2.length + str3.length;
+function stringLength(... input){
+    let length = 0;
+    for (const inputElement of input) {
+        length += inputElement.length;
+    }
     console.log(length);
-    console.log(Math.floor(length / 3));
+    console.log(Math.floor(length / input.length));
 }
 
-stringLength('pasta', '5', '22.3');
+stringLength('chocolate', 'ice cream', 'cake', 'pasta', '5', '22.3');
