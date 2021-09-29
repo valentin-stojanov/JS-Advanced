@@ -3,6 +3,7 @@ function magicMatrices(matrix) {
     let sum = 0
     const resultSums = [];
     let cowSum = 0;
+    let rowSum = 0;
 
     for (let i = 0; i < matrix.length; i++) {
         rowSum = matrix[i].reduce((a, b) => a + b, 0);
