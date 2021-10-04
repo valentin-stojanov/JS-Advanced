@@ -1,8 +1,8 @@
 function townsToJSON(arr){
     const result = [];
-    const header = arr[0].split(/[\s]*[|][\s]*/)
-    header.shift();
-    header.pop();
+    const header = arr[0].split(/[\s]*[|][\s]*/).filter(e => e !== '');
+    // header.shift();
+    // header.pop();
 
     const town = header[0];
     const latitude = header[1];
@@ -10,7 +10,7 @@ function townsToJSON(arr){
 
     for (let i = 1; i < arr.length; i++) {
         const obj = {};
-        let [ firstEmpty, currentTown, currentLatitude, currentLongitude, lastEmpty] = arr[i].split(/\s*[|]\s*/);
+        let [currentTown, currentLatitude, currentLongitude] = arr[i].split(/\s*[|]\s*/).filter(e => e !== '');
         obj[town] = currentTown;
         obj[latitude] = Number(Number(currentLatitude).toFixed(2));
         obj[longitude] = Number(Number(currentLongitude).toFixed(2));
