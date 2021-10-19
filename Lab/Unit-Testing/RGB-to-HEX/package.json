@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "chai": "^4.3.4"
+  },
+
+  "scripts": {
+    "test": "mocha rgbToHexColor.test.js"
+  }
+}
