@@ -14,4 +14,5 @@ function rgbToHexColor(red, green, blue) {
         ("0" + blue.toString(16).toUpperCase()).slice(-2);
 }
 
+
 module.exports = rgbToHexColor;
