@@ -28,7 +28,4 @@ async function getInfo() {
         stopNameElement.textContent = 'Error';
     }
 
-
-
-
 }
