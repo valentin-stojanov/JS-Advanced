@@ -47,6 +47,13 @@ function createRecipeCard(recipe) {
 }
 
 window.addEventListener('load', async () => {
+    const token = localStorage.getItem('token');
+    if (token == null){
+        document.getElementById('guest').style.display = 'inline-block';
+    } else {
+        document.getElementById('user').style.display = 'inline-block';
+    }
+
     const main = document.querySelector('main');
 
     const recipes = await getRecipes();
