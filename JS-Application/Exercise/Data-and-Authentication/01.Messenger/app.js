@@ -22,4 +22,22 @@ async function getMessages(e) {
         .join('\n');
 }
 
-// async function sengMessage
+async function sengMessage(event) {
+    const url = 'http://localhost:3030/jsonstore/messenger';
+
+    const message = {
+        author: `${inputNameElement.value}`,
+        content: `${inputMessageElement.value}`
+    }
+
+    const res = await fetch(url, {
+        method: 'post',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(message)
+    });
+
+    inputNameElement.value = '';
+    inputMessageElement.value = '';
+}
