@@ -2,9 +2,13 @@
 // - find relevant section
 // - detach section from DOM
 
-import {showView} from "./dom.js";
-import {showCreate} from "./create.js";
-import {showDetails} from "./details.js";
+import { showView } from "./dom.js";
+import { showCreate } from "./create.js";
+import { showDetails } from "./details.js";
+
+let movieCash = null;
+let lastLoaded = null;
+const maxAge = 60000;
 
 const section = document.getElementById('home-page');
 const catalog = section.querySelector('.card-deck.d-flex.justify-content-center');
@@ -39,15 +43,17 @@ async function getMovies() {
     p.textContent = 'Loading...';
     catalog.replaceChildren(p);
 
-    const res = await fetch('http://localhost:3030/data/movies');
-    const data = await res.json();
+    const now = Date.now();
 
-    catalog.replaceChildren(...data.map(createMovieCard));
-
-    return data;
+    if (movieCash == null || (now - lastLoaded) > maxAge) {
+        lastLoaded = now;
+      
+        const res = await fetch('http://localhost:3030/data/movies');
+        const data = await res.json();
+        movieCash = data;
+    }
+    catalog.replaceChildren(...movieCash.map(createMovieCard));
 }
-
-window.getMovies = getMovies;
 
 function createMovieCard(movie) {
     const element = document.createElement('div');
