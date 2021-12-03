@@ -1,47 +1,37 @@
-import { towns } from "./towns.js";
-import { render, html } from "./node_modules/lit-html/lit-html.js";
+import {towns as townNames} from "./towns.js";
+import {render, html} from "./node_modules/lit-html/lit-html.js";
 
-const townsList = (towns) => html`
-<ul>
-   ${towns.map(townTemplate)}
-</ul>
+const listTemplate = (towns) => html`
+    <ul>
+        ${towns.map(t => html`
+            <li class=${t.match ? 'active' : ''}>${t.name}</li>`)}
+    </ul>
 `;
 
-const townTemplate = (town) => html`
-<li>${town}</li>
-`
+const towns = townNames.map(t => ({name: t, match: false}))
+const root = document.getElementById('towns');
+const input = document.getElementById('searchText');
+const output = document.getElementById('result');
 
-const townsElement = document.getElementById('towns');
+document.querySelector('button').addEventListener('click', onSearch);
 
 function update() {
-   render(townsList(towns), townsElement);
+    render(listTemplate(towns), root);
 }
 
 update();
 
-const searchBtn = document.getElementById('searchBtn');
-const resultElement = document.getElementById('result');
-
-searchBtn.addEventListener('click', search);
-
-function search(event) {
-   let matches = 0;
-   const inputField = event.target.parentElement.querySelector('#searchText').value;
-   const townsList = [...townsElement.querySelectorAll('li')];
-   townsList.forEach(t => {
-      if (t.textContent.toLocaleLowerCase().includes(inputField.toLocaleLowerCase()) && inputField != '') {
-         t.classList.add('active');
-         matches++;
-      } else {
-         t.classList.remove('active');
-      }
-   });
-
-   if (matches > 0) {
-      resultElement.textContent = `${matches} matches found`;
-   } else {
-      resultElement.textContent = '';
-   }
+function onSearch() {
+    const match = input.value.trim().toLocaleLowerCase();
+    let matches = 0;
+    for (const town of towns) {
+        if (match && town.name.toLocaleLowerCase().includes(match)) {
+            town.match = true;
+            matches++;
+        } else {
+            town.match = false;
+        }
+    }
+    output.textContent = `${matches} matches found`;
+    update();
 }
-
-
