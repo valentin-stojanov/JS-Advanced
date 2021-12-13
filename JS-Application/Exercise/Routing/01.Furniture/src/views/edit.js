@@ -1,5 +1,5 @@
 import {html} from '../lib.js';
 
-export function editPage(){
-    console.log('edit view');
+export function editPage(ctx){
+    console.log('edit view', ctx.params.id);
 }

@@ -4,7 +4,7 @@ async function request(url, options){
     try{
     const response = await fetch (host + url, options)
 
-    if (response.ok != ok){
+    if (response.ok != true){
         if(response.status == 403){
             sessionStorage.removeItem('userData');
         }
@@ -19,8 +19,8 @@ async function request(url, options){
     }
 
     } catch (error){
-        alert(err.message);
-        throw err;
+        alert(error.message);
+        throw error;
     }
 }
 
