@@ -2,7 +2,8 @@ const host = 'http://localhost:3030';
 
 async function request(url, options){
     try{
-    const response = await fetch (host + url, options)
+    const response = await fetch (host + url, options);
+
 
     if (response.ok != true){
         if(response.status == 403){
@@ -61,7 +62,7 @@ export async function del(url){
 }
 
 export async function login(email, password){
-    const result = await post('/users/login', {email, password} );
+    const result = await request('/users/login', createOptions('post', {email, password}));
 
     const userData = {
         email: result.email,
@@ -73,7 +74,7 @@ export async function login(email, password){
 }
 
 export async function register(email, password){
-    const result = await post('/users/register', {email, password} );
+    const result = await request('/users/register', createOptions('post', {email, password}));
 
     const userData = {
         email: result.email,
@@ -85,6 +86,6 @@ export async function register(email, password){
 }
 
 export async function logout(){
-    await get('/users/logout');
+    await request('/users/logout', createOptions());
     sessionStorage.removeItem('userData');
 }

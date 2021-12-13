@@ -35,6 +35,6 @@ export async function editItem(id, data) {
     return api.put(endpoints.edit + id, data);
 }
 
-export async function deliteItem(id) {
-    return api.put(endpoints.delete + id);
+export async function deleteItem(id) {
+    return api.del(endpoints.delete + id);
 }
