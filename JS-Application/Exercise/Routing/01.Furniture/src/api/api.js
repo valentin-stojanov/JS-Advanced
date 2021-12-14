@@ -46,7 +46,7 @@ function createOptions(method = 'get', data){
 }
 
 export async function get(url){
-    return request(url);
+    return request(url, createOptions());
 }
 
 export async function  post(url, data){
@@ -62,7 +62,7 @@ export async function del(url){
 }
 
 export async function login(email, password){
-    const result = await request('/users/login', createOptions('post', {email, password}));
+    const result = await post('/users/login', {email, password});
 
     const userData = {
         email: result.email,
@@ -74,7 +74,7 @@ export async function login(email, password){
 }
 
 export async function register(email, password){
-    const result = await request('/users/register', createOptions('post', {email, password}));
+    const result = await post('/users/register', {email, password});
 
     const userData = {
         email: result.email,
@@ -86,6 +86,6 @@ export async function register(email, password){
 }
 
 export async function logout(){
-    await request('/users/logout', createOptions());
+    await get('/users/logout');
     sessionStorage.removeItem('userData');
 }
